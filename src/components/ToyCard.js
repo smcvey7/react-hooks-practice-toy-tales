@@ -1,17 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 
-function ToyCard() {
+function ToyCard({id, name, image, likes, handleLike, donateToy}) {
+  const [likesReceived, setLikesReceived]=useState(likes)
+
+  function onLikeClick(){
+    const newLikeAmount = likesReceived+1
+    setLikesReceived(newLikeAmount)
+    handleLike(id, newLikeAmount)
+  }
   return (
     <div className="card">
-      <h2>{"" /* Toy's Name */}</h2>
+      <h2>{name}</h2>
       <img
-        src={"" /* Toy's Image */}
-        alt={"" /* Toy's Name */}
+        src={image}
+        alt={name}
         className="toy-avatar"
       />
-      <p>{"" /* Toy's Likes */} Likes </p>
-      <button className="like-btn">Like {"<3"}</button>
-      <button className="del-btn">Donate to GoodWill</button>
+      <p>{likes} Likes </p>
+      <button onClick={onLikeClick} className="like-btn">Like {"<3"}</button>
+      <button onClick={()=>donateToy(id)} className="del-btn">Donate to GoodWill</button>
     </div>
   );
 }
